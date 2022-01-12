@@ -14,5 +14,12 @@
 * kinesis 
 * redshift 
 * cloudwatch
+* Python
+* s3 
+* Tableau 
+* firehose 
+* dynamo db 
+* glue 
 
 # Build ingestion pipeline 
+
