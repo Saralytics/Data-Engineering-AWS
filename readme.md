@@ -95,8 +95,9 @@ Previous step, raw data is stored in S3 for backup. For transaction use cases, w
 Similar to the s3 pipeline, Kinesis triggers Lambda, Lambda function reformates the data and write to tables. 
 
 #### 3.1 Define tables in Dynamo DB 
-| | Invoice Num 1 | Invoice Num 2 | Invoice Num 3| ... | Invoice Num N |
-|Customer ID| invoice 1(json) | invoice 2 | invoice 3 | ... | invoice n|
+|           | Invoice Num 1   | Invoice Num 2 | Invoice Num 3| ... | Invoice Num N |
+|-----------|-----------------|---------------|--------------|-----|---------------|
+|Customer ID| invoice 1(json) | invoice 2     | invoice 3    | ... | invoice n     |
 
 
 
