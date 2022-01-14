@@ -109,5 +109,5 @@ Key consideration:
 
 # Consuming data using Redshift Datawarehouse 
 
-# Thoughts 
+# Thoughts, improvements, other ideas 
 It's pretty easy to get lost, so get familiar with AWS
