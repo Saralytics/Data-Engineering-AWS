@@ -93,6 +93,10 @@ Create test event
 Previous step, raw data is stored in S3 for backup. For transaction use cases, we will ingest data into DynamoDB.
 
 Similar to the s3 pipeline, Kinesis triggers Lambda, Lambda function reformates the data and write to tables. 
+    
+Key consideration: 
+1. Super important to decide on data access patterns prior to creating tables, because NoSQL databases don't accomodate reshaping data when being queried like RDBMS. [Access pattern matrix](https://docs.aws.amazon.com/prescriptive-guidance/latest/dynamodb-data-modeling/template-access-patterns.html)
+2. Choosing the right partition key is important for velocity and scalability. [Best practices](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-time-series.html)
 
 #### 3.1 Define tables in Dynamo DB 
 |           | Invoice Num 1   | Invoice Num 2 | Invoice Num 3| ... | Invoice Num N |
