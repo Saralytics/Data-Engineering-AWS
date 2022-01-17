@@ -11,7 +11,6 @@ This project aims to build a pipeline on AWS that serves 2 goals:
 - [x] Visualization 
 - [x] API 
 
-
 # Dataset
 
 Ecommerce dataset from Kaggle [link](https://www.kaggle.com/carrie1/ecommerce-data)
@@ -20,7 +19,6 @@ Columns
 Rows 
 Data types 
 Unique categorical values 
-
 
 # Platform Design
 ####  Overview 
@@ -33,14 +31,12 @@ We can either implement a relational design or non-relational design, so which o
 ![alt text](image.jpg)
 
 - Why use a NoSQL database?
-    No modelling required;
-    Fast retrival;
-    In our use case, only retrival is needed, we don't need to be full ACID compliant;
-
+    Minimum modelling required;
+    Advantage in speed;
+    In our use case, the access patterns are predictable and defined, i.e. retrievel of customer invoices and invoice details. In comparison, if the access patterns are constantly varying (typical in analytical use cases), it's better to use relational DBs.    
 
 # Tools needed
 
-* Postman (testing API manually)
 * AWS API Gateway 
 * AWS Lambda Function 
 * Kinesis, Kinesis Firehose
@@ -51,9 +47,13 @@ We can either implement a relational design or non-relational design, so which o
 * Tableau  
 * DynamoDB 
 * AWS Glue
+* Postman (testing API manually)
 
 # Tips before you start
-
+- Limit Lambda retries
+- Limit DynamoDB read and write capacity
+- Kinesis and DynamoDB costs even when you are not using it
+- Add all services in the same region
 
 # 1 Data Ingestion Pipeline
 
@@ -95,9 +95,39 @@ Previous step, raw data is stored in S3 for backup. For transaction use cases, w
 Similar to the s3 pipeline, Kinesis triggers Lambda, Lambda function reformates the data and write to tables. 
 
 #### 3.1 Define tables in Dynamo DB 
-|           | Invoice Num 1   | Invoice Num 2 | Invoice Num 3| ... | Invoice Num N |
+Table 1 - Customer purchase, storing invoice by customer ID and Invoice Number
+
+|Customer ID| Invoice Num 1   | Invoice Num 2 | Invoice Num 3| ... | Invoice Num N |
 |-----------|-----------------|---------------|--------------|-----|---------------|
-|Customer ID| invoice 1(json) | invoice 2     | invoice 3    | ... | invoice n     |
+|45njg4i8lkg| invoice 1(json) | invoice 2     | invoice 3    | ... | invoice n     |
+|lk45abjgriu| invoice 1(json) | invoice 2     |              | ... |               |
+
+Table 2 - Invoice details, storing items info 
+|Invoice Num| Stock Code 1     | Stock Code 2  | Stock Code 3 | ... | Stock Code N  |
+|-----------|------------------|---------------|--------------|-----|---------------|
+|10000029476| Description(json)| invoice 2     | invoice 3    | ... | invoice n     |
+|10000487563| ...              |  ...          | ...          | ... |               |
+
+#### 3.2 Create tables 
+
+#### 3.3 IAM
+basic execution role
+read from kinesis 
+write to dynamoDB
+[link to policy]()
+
+#### 3.4 Lambda Function
+
+# 4 Data Consumption - Visualization & Redshift 
+Overview: 
+Kinesis data stream -> Firehose managed delivery stream (gets data from data stream, put in s3 intermediate storage, copy to redhisft) -> redshift
+
+#### 4.1 Configure redshift cluster 
+
+Cluster types (node types)
+Networking and security with VPC
+
+#### 4.2 VPC Routing for firehose
 
 
 
@@ -106,4 +136,4 @@ Similar to the s3 pipeline, Kinesis triggers Lambda, Lambda function reformates 
 # Consuming data using Redshift Datawarehouse 
 
 # Thoughts 
-It's pretty easy to get lost, so get familiar with AWS
+
