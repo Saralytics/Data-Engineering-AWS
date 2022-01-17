@@ -15,10 +15,10 @@ This project aims to build a pipeline on AWS that serves 2 goals:
 
 Ecommerce dataset from Kaggle [link](https://www.kaggle.com/carrie1/ecommerce-data)
 **Quick look at the dataset:**
-Columns
-Rows 
-Data types 
-Unique categorical values 
+Columns: contains 8 columns
+Rows: decent amount of rows to similate streaming
+Data types: string, datetime, numerical data types present
+Unique categorical values: important to perform group bys 
 
 # Platform Design
 ####  Overview 
@@ -66,7 +66,6 @@ Special note on adding the mapping template under integration request.
 #### 1.3 Create the kinesis data stream 
 #### 1.4 Attach the right policies 
 #### 1.5 Test the pipeline
-
 - From cloudwatch, go to the logs -> log groups, you can see log events 
 - Go to Kinesis to check if the data has been written - this might take a few minutes  
 - Another way, manually test from postman
