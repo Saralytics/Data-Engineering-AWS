@@ -22,7 +22,7 @@ Unique categorical values: important to perform group bys
 
 # Platform Design
 ####  Overview 
-![alt text](image.jpg)
+![alt text](https://github.com/Saralytics/Data-Engineering-AWS/blob/main/image/aws.png)
 
 #### Considerations:
 We can either implement a relational design or non-relational design, so which one to choose?
